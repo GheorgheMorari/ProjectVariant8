@@ -4,6 +4,7 @@
 #include "operations.h"
 #define maxOperations 255
 
+// float version 
 
 struct operation {
 	int  leftEdge, rightEdge, position, leftminus, rightminus;
