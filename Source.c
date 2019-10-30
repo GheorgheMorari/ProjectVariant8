@@ -4,6 +4,7 @@
 #include "operations.h"
 #define maxOperations 255
 
+
 struct operation {
 	int  leftEdge, rightEdge, position, leftminus, rightminus;
 	float leftNumber, rightNumber;

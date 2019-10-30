@@ -25,7 +25,6 @@ int tenToPower(int n) {     //function that returns the 10^n
 	return temp;
 }
 
-
 void printarr(int n, char* arr) {  // prints out the contents of the array for debugging purposes
 	int j;
 	for (j = 0; j <= n; j++)
