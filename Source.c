@@ -270,8 +270,7 @@ int main() {
 			printf("result %f", temp);
 		}
 	}
-	char c;
-	scanf_s("%c",&c);
+
 	free(arr);
 	free(operations);
 	free(mainarr);
