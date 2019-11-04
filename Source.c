@@ -3,7 +3,7 @@
 #include "input.h"
 #include "operations.h"
 #define maxOperations 255
-
+#define debug 0
 
 struct operation {
 	int  leftEdge, rightEdge, position, leftminus, rightminus;
@@ -141,9 +141,13 @@ int calculate(int index, int num) { //this function calculates the result of the
 		temp = sub(operations[num].leftNumber, operations[num].rightNumber);
 	if (arr[index] == '*')
 		temp = mult(operations[num].leftNumber, operations[num].rightNumber);
-	if (arr[index] == '/')
+	if (arr[index] == '/') {
+		if (operations[num].rightNumber == 0) {
+			printf("Undefined");
+			exit(0);
+		}
 		temp = divide(operations[num].leftNumber, operations[num].rightNumber);
-
+	}
 	j = 0;
 	int sum = temp;
 	for (i = operations[num].rightEdge; i > operations[num].leftEdge; i--) {
@@ -186,14 +190,17 @@ int main() {
 	numOfOperations = setOrder(0, n, 0);   //set the order of operations from start to the end of the ecuation
 	
 	printarr(n,arr);
-	for (i = 0; i < numOfOperations; i++)
-		printf(" %d->%d ", operations[i].position, i);
-	printf("\n");
+	if (debug) {
+		for (i = 0; i < numOfOperations; i++)
+			printf(" %d->%d ", operations[i].position, i);
+		printf("\n");
+	}
 	for (i = 0; i < numOfOperations; i++) {
 		int temp = calculate(operations[i].position, i);
-
-		printf("for operaition %d result is %d \n",i,temp);
-		printarr(n,arr);
+		if (debug) {
+			printf("for operaition %d result is %d \n", i, temp);
+			printarr(n, arr);
+		}
 		if (i == numOfOperations - 1) {
 			printf("result %d", temp);
 		}
