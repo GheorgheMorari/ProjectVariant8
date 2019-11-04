@@ -17,11 +17,15 @@ float divide(float left, float right) {
 	return left / right;
 }
 
-int tenToPower(int n) {     //function that returns the 10^n
-	int i, temp = 1;
-	for (i = 0; i < n; i++) {
-		temp *= 10;
-	}
+float tenToPower(int n) {     //function that returns the 10^n
+	float i, temp = 1;
+	if (n < 0) {
+		for (i = 0; i < abs(n); i++)   
+			temp /= 10;
+	} else
+		for (i = 0; i < n; i++) {
+			temp *= 10;
+		}
 	return temp;
 }
 
