@@ -3,7 +3,7 @@
 #include "input.h"
 #include "operations.h"
 #define maxOperations 255
-#define debug 1
+#define debug 0
 
 // float version 
 
@@ -203,7 +203,7 @@ float calculate(int index, int num) { //this function calculates the result of t
 		temp = mult(operations[num].leftNumber, operations[num].rightNumber);
 	if (arr[index] == '/') {
 		if (operations[num].rightNumber == 0) {
-			printf("Undifined");
+			printf("Undefined");
 			exit(0);
 		} else 
 			temp = divide(operations[num].leftNumber, operations[num].rightNumber);
@@ -270,7 +270,8 @@ int main() {
 			printf("result %f", temp);
 		}
 	}
-	
+	char c;
+	scanf_s("%c",&c);
 	free(arr);
 	free(operations);
 	free(mainarr);
