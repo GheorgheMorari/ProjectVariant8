@@ -228,7 +228,7 @@ int main() {
 		mainarr[j] = 0;
 		validposition[j] = 0;
 	}
-	//setNumbers();
+	setNumbers();
 
 
 	printarr(n,arr);
