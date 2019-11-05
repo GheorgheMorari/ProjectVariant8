@@ -16,6 +16,8 @@ char* arr;
 int* results;
 int length;
 int numOfOperations;
+float* mainarr;
+int* validposition;
 
 
 int isNumber(int pos) {
@@ -34,9 +36,9 @@ int getEnd(int start) {   //function that skips the brackets and returns the ide
 	int i = start + 1, temp = 1;
 	while (temp > 0 && i < length) {
 		i++;
-		if (arr[i] == ')')
+		if (arr[i] == ')' || arr[i] == ']' || arr[i] == '}')
 			temp--;
-		else if (arr[i] == '(')
+		else if (arr[i] == '(' || arr[i] == '[' || arr[i] == '{')
 			temp++;
 	}
 	return i;
@@ -177,6 +179,31 @@ int checkIfNotOperation(int pos, int num) {
 	return 1;
 }
 
+void setNumbers() {
+	int i, j, k = 0;
+	int minus = 1;
+	for (i = 0; i < length; i++) { //find the right side number
+		if (isNumber(i) != -1 && checkIfNotOperation(i, 0) == 1 && isNumber(i + 1) == 1) {
+			if (arr[i] == '-')
+				minus = -1; //check if right number is negative
+		}
+		if (isNumber(i) == 1) {
+			k = i;
+			validposition[k] = 1;
+			while (isNumber(i) == 1) { // get the length of the number while tracking forward
+				j++;
+				i++;
+			}
+			int t = i;
+			for (t = j; t > 0; t--) {
+				int c = arr[t + i - j - 1] - '0';
+				int pow = tenToPower(j - i); // set the right number while tracking backwards
+				mainarr[k] += c * pow;
+			}	
+			mainarr[k] *= minus;
+		}	
+	}
+}
 
 int main() {
 	int i,j, n;
@@ -184,6 +211,8 @@ int main() {
 	length = n;
 	operations = (struct operation*)malloc(sizeof(struct operation) * maxOperations);
 	results = (int*)malloc(sizeof(int) * n);
+	validposition = (int*)malloc(sizeof(int) * length);
+	mainarr = (float*)malloc(sizeof(float) * length);
 	numOfOperations = setOrder(0, n, 0);   //set the order of operations from start to the end of the ecuation
 	
 	printarr(n,arr);
@@ -199,7 +228,8 @@ int main() {
 			printf("result %d", temp);
 		}
 	}
-	
+	free(validposition);
+	free(mainarr);
 	free(arr);
 	free(operations);
 	free(results);
